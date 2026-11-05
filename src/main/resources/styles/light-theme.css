@@ -1,0 +1,22 @@
+/* LexiBangla Desktop - Light Theme Palette */
+.root {
+    -color-primary: #3659C9;
+    -color-primary-hover: #2947A8;
+    -color-primary-pressed: #203A8B;
+    -color-secondary-teal: #0F9D91;
+    -color-accent: #19B5A5;
+    -color-focus-ring: #6C8DF0;
+
+    -color-bg: #F5F7FB;
+    -color-surface: #FFFFFF;
+    -color-surface-secondary: #EDF1F8;
+    -color-text-primary: #172033;
+    -color-text-secondary: #65718A;
+    -color-text-muted: #8A94A8;
+    -color-border: #DCE2EC;
+    -color-divider: #E7EBF2;
+    -color-selected: #E8EEFF;
+    -color-success: #21845A;
+    -color-warning: #B7791F;
+    -color-error: #C64747;
+}
