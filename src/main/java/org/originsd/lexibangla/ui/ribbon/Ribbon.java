@@ -6,11 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Top-level Ribbon navigation component.
+ * Top-level Ribbon navigation component with content-driven height.
  */
 public class Ribbon extends VBox {
 
@@ -22,8 +23,8 @@ public class Ribbon extends VBox {
 
     public Ribbon() {
         getStyleClass().add("ribbon-bar");
-        setMinHeight(115);
-        setPrefHeight(115);
+        setMinHeight(Region.USE_COMPUTED_SIZE);
+        setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         tabBar = new HBox(2);
         tabBar.getStyleClass().add("ribbon-tab-bar");
@@ -31,6 +32,8 @@ public class Ribbon extends VBox {
 
         contentArea = new StackPane();
         contentArea.getStyleClass().add("ribbon-content-area");
+        contentArea.setMinHeight(Region.USE_COMPUTED_SIZE);
+        contentArea.setPrefHeight(Region.USE_COMPUTED_SIZE);
         VBox.setVgrow(contentArea, Priority.ALWAYS);
 
         getChildren().addAll(tabBar, contentArea);

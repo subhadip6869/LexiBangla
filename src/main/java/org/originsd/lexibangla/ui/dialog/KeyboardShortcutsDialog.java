@@ -55,10 +55,11 @@ public class KeyboardShortcutsDialog {
 
         root.getChildren().addAll(header, grid, btnBox);
 
-        Scene scene = new Scene(root, 400, 400);
+        Scene scene = new Scene(root, 440, 420);
         ThemeManager.applyTheme(scene, settings);
 
         dialog.setScene(scene);
+        dialog.sizeToScene();
         dialog.showAndWait();
     }
 

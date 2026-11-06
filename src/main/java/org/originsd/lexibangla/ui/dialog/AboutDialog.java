@@ -72,13 +72,13 @@ public class AboutDialog {
         infoBox.setPadding(new Insets(8, 0, 8, 0));
 
         Label publisherLabel = new Label("Publisher: " + AppConfig.PUBLISHER);
-        publisherLabel.setStyle("-fx-text-fill: -color-text-secondary;");
+        publisherLabel.getStyleClass().add("about-secondary-label");
 
         Label devLabel = new Label("Developer: " + AppConfig.DEVELOPER);
-        devLabel.setStyle("-fx-text-fill: -color-text-secondary;");
+        devLabel.getStyleClass().add("about-secondary-label");
 
         Label locationLabel = new Label("Location: " + AppConfig.LOCATION);
-        locationLabel.setStyle("-fx-text-fill: -color-text-muted; -fx-font-size: 11px;");
+        locationLabel.getStyleClass().add("about-muted-label");
 
         HBox linksBox = new HBox(12);
         linksBox.setAlignment(Pos.CENTER);
@@ -86,13 +86,16 @@ public class AboutDialog {
         Hyperlink webLink = new Hyperlink(AppConfig.WEBSITE_URL);
         webLink.setOnAction(e -> openUrl(AppConfig.WEBSITE_URL));
 
+        Label bulletLabel = new Label("•");
+        bulletLabel.getStyleClass().add("about-muted-label");
+
         Hyperlink repoLink = new Hyperlink("GitHub Repository");
         repoLink.setOnAction(e -> openUrl(AppConfig.REPO_URL));
 
-        linksBox.getChildren().addAll(webLink, new Label("•"), repoLink);
+        linksBox.getChildren().addAll(webLink, bulletLabel, repoLink);
 
         Label copyrightLabel = new Label(AppConfig.COPYRIGHT);
-        copyrightLabel.setStyle("-fx-text-fill: -color-text-muted; -fx-font-size: 11px;");
+        copyrightLabel.getStyleClass().add("about-muted-label");
 
         Button closeBtn = new Button("Close");
         closeBtn.getStyleClass().add("action-btn-primary");
@@ -101,10 +104,11 @@ public class AboutDialog {
         infoBox.getChildren().addAll(publisherLabel, devLabel, locationLabel, linksBox, copyrightLabel);
         content.getChildren().addAll(logoView, nameLabel, versionLabel, taglineLabel, descLabel, infoBox, closeBtn);
 
-        Scene scene = new Scene(content, 420, 480);
+        Scene scene = new Scene(content, 440, 500);
         ThemeManager.applyTheme(scene, settings);
 
         dialog.setScene(scene);
+        dialog.sizeToScene();
         dialog.showAndWait();
     }
 

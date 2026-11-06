@@ -19,4 +19,7 @@
     -color-success: #21845A;
     -color-warning: #B7791F;
     -color-error: #C64747;
+
+    -color-badge-offline-bg: #E6F7ED;
+    -color-badge-offline-text: #166534;
 }

@@ -19,8 +19,8 @@ public class RibbonGroup extends VBox {
     public RibbonGroup(String title, Node... nodes) {
         getStyleClass().add("ribbon-group");
         setAlignment(Pos.CENTER);
-        setSpacing(2);
-        setPadding(new Insets(2, 6, 2, 6));
+        setSpacing(3);
+        setPadding(new Insets(3, 8, 4, 8));
 
         contentBox = new HBox(4);
         contentBox.setAlignment(Pos.CENTER);

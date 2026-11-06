@@ -1,6 +1,8 @@
 package org.originsd.lexibangla.ui.theme;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import org.originsd.lexibangla.config.UserSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +67,34 @@ public final class ThemeManager {
         scene.getRoot().setStyle("-fx-font-size: " + baseSize + "px;");
 
         log.info("Applied theme {} with font size {}px", currentTheme, baseSize);
+    }
+
+    public static void applyTheme(Dialog<?> dialog, UserSettings settings) {
+        if (dialog == null) return;
+        applyTheme(dialog.getDialogPane(), settings);
+    }
+
+    public static void applyTheme(DialogPane pane, UserSettings settings) {
+        if (pane == null) return;
+
+        Theme targetTheme = Theme.LIGHT;
+        if (settings != null && settings.getTheme() != null) {
+            try {
+                targetTheme = Theme.valueOf(settings.getTheme().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                targetTheme = Theme.LIGHT;
+            }
+        }
+
+        pane.getStylesheets().clear();
+        String palette = ThemeManager.class.getResource(targetTheme.getCssPath()).toExternalForm();
+        pane.getStylesheets().add(palette);
+        String master = ThemeManager.class.getResource(MASTER_THEME_CSS).toExternalForm();
+        pane.getStylesheets().add(master);
+
+        int baseSize = 13 + (settings != null ? settings.getFontSizeDelta() : 0);
+        baseSize = Math.clamp(baseSize, 10, 24);
+        pane.setStyle("-fx-font-size: " + baseSize + "px;");
     }
 
     public static Theme getCurrentTheme() {

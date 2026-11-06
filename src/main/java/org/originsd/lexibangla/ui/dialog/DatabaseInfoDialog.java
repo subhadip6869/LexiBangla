@@ -29,8 +29,8 @@ public class DatabaseInfoDialog {
         dialog.setTitle("Database Information");
         dialog.setResizable(false);
 
-        VBox root = new VBox(14);
-        root.setPadding(new Insets(20));
+        VBox root = new VBox(12);
+        root.setPadding(new Insets(18));
         root.getStyleClass().add("detail-card");
 
         Label header = new Label("Database Architecture & Status");
@@ -45,20 +45,19 @@ public class DatabaseInfoDialog {
         masterGrid.setVgap(6);
 
         long count = masterDao.getTotalWordCount();
-        masterGrid.add(new Label("Total Word Entries:"), 0, 0);
-        Label countLabel = new Label(String.format("%,d words", count));
-        countLabel.setStyle("-fx-font-weight: bold;");
+        masterGrid.add(createKeyLabel("Total Word Entries:"), 0, 0);
+        Label countLabel = createValLabel(String.format("%,d words", count));
         masterGrid.add(countLabel, 1, 0);
 
-        masterGrid.add(new Label("Access Engine:"), 0, 1);
-        masterGrid.add(new Label("Direct SQLite JDBC (Prepared Statements)"), 1, 1);
+        masterGrid.add(createKeyLabel("Access Engine:"), 0, 1);
+        masterGrid.add(createValLabel("Direct SQLite JDBC (Prepared Statements)"), 1, 1);
 
-        masterGrid.add(new Label("Access Mode:"), 0, 2);
-        Label roLabel = new Label("Strictly Read-Only (Unmodified)");
+        masterGrid.add(createKeyLabel("Access Mode:"), 0, 2);
+        Label roLabel = createValLabel("Strictly Read-Only (Unmodified)");
         roLabel.setStyle("-fx-text-fill: -color-success; -fx-font-weight: bold;");
         masterGrid.add(roLabel, 1, 2);
 
-        masterGrid.add(new Label("Database File:"), 0, 3);
+        masterGrid.add(createKeyLabel("Database File:"), 0, 3);
         Label pathLabel = new Label(masterDao.getDatabasePath().toString());
         pathLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: -color-text-muted;");
         masterGrid.add(pathLabel, 1, 3);
@@ -71,19 +70,19 @@ public class DatabaseInfoDialog {
         userGrid.setHgap(12);
         userGrid.setVgap(6);
 
-        userGrid.add(new Label("Favorites Count:"), 0, 0);
-        userGrid.add(new Label(String.valueOf(userRepo.getFavoriteCount())), 1, 0);
+        userGrid.add(createKeyLabel("Favorites Count:"), 0, 0);
+        userGrid.add(createValLabel(String.valueOf(userRepo.getFavoriteCount())), 1, 0);
 
-        userGrid.add(new Label("Personal Notes Count:"), 0, 1);
-        userGrid.add(new Label(String.valueOf(userRepo.getNoteCount())), 1, 1);
+        userGrid.add(createKeyLabel("Personal Notes Count:"), 0, 1);
+        userGrid.add(createValLabel(String.valueOf(userRepo.getNoteCount())), 1, 1);
 
-        userGrid.add(new Label("Search History Count:"), 0, 2);
-        userGrid.add(new Label(String.valueOf(userRepo.getSearchHistoryCount())), 1, 2);
+        userGrid.add(createKeyLabel("Search History Count:"), 0, 2);
+        userGrid.add(createValLabel(String.valueOf(userRepo.getSearchHistoryCount())), 1, 2);
 
-        userGrid.add(new Label("Persistence Layer:"), 0, 3);
-        userGrid.add(new Label("Hibernate ORM 6 + Jakarta Persistence (JPA)"), 1, 3);
+        userGrid.add(createKeyLabel("Persistence Layer:"), 0, 3);
+        userGrid.add(createValLabel("Hibernate ORM 6 + Jakarta Persistence (JPA)"), 1, 3);
 
-        userGrid.add(new Label("Database Location:"), 0, 4);
+        userGrid.add(createKeyLabel("Database Location:"), 0, 4);
         Label userPathLabel = new Label(AppConfig.getUserDatabasePath().toString());
         userPathLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: -color-text-muted;");
         userGrid.add(userPathLabel, 1, 4);
@@ -97,10 +96,23 @@ public class DatabaseInfoDialog {
 
         root.getChildren().addAll(header, masterTitle, masterGrid, new Separator(), userTitle, userGrid, btnBox);
 
-        Scene scene = new Scene(root, 540, 420);
+        Scene scene = new Scene(root, 560, 480);
         ThemeManager.applyTheme(scene, settings);
 
         dialog.setScene(scene);
+        dialog.sizeToScene();
         dialog.showAndWait();
+    }
+
+    private static Label createKeyLabel(String text) {
+        Label label = new Label(text);
+        label.getStyleClass().add("db-info-key");
+        return label;
+    }
+
+    private static Label createValLabel(String text) {
+        Label label = new Label(text);
+        label.getStyleClass().add("db-info-val");
+        return label;
     }
 }
