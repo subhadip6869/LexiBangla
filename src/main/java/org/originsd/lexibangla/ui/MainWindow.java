@@ -502,15 +502,20 @@ public class MainWindow {
 
         detailWordLabel = new Label();
         detailWordLabel.getStyleClass().add("detail-word-header");
-        HBox.setHgrow(detailWordLabel, Priority.ALWAYS);
 
         favoriteStarBtn = new Button();
         starIcon = new FontIcon(Feather.STAR);
-        starIcon.setIconSize(22);
+        starIcon.setIconSize(24);
         favoriteStarBtn.setGraphic(starIcon);
         favoriteStarBtn.getStyleClass().add("favorite-star-btn");
-        favoriteStarBtn.setTooltip(new Tooltip("Add / Remove from Favorites (Ctrl+D)"));
+        favoriteStarBtn.setTooltip(new Tooltip("Add to Favorites (Ctrl+D)"));
         favoriteStarBtn.setOnAction(e -> toggleFavoriteCurrentWord());
+
+        HBox wordTitleBox = new HBox(8, detailWordLabel, favoriteStarBtn);
+        wordTitleBox.setAlignment(Pos.CENTER_LEFT);
+
+        Region wordHeaderSpacer = new Region();
+        HBox.setHgrow(wordHeaderSpacer, Priority.ALWAYS);
 
         Button copyWordBtn = new Button("Copy");
         FontIcon copyIcon = new FontIcon(Feather.COPY);
@@ -523,7 +528,7 @@ public class MainWindow {
             }
         });
 
-        wordHeaderBox.getChildren().addAll(detailWordLabel, favoriteStarBtn, copyWordBtn);
+        wordHeaderBox.getChildren().addAll(wordTitleBox, wordHeaderSpacer, copyWordBtn);
 
         // Meaning Card
         VBox meaningCard = new VBox(8);
@@ -712,10 +717,15 @@ public class MainWindow {
     private void updateFavoriteStarState(String word) {
         boolean isFav = userRepo.isFavorite(word);
         if (isFav) {
-            starIcon.setStyle("-fx-icon-color: #E6B45C;");
+            if (!favoriteStarBtn.getStyleClass().contains("favorited")) {
+                favoriteStarBtn.getStyleClass().add("favorited");
+            }
+            starIcon.setStyle("-fx-icon-color: #F59E0B;");
             favoriteStarBtn.setTooltip(new Tooltip("Remove from Favorites (Ctrl+D)"));
         } else {
-            starIcon.setStyle("-fx-icon-color: -color-text-muted;");
+            favoriteStarBtn.getStyleClass().remove("favorited");
+            boolean isDark = ThemeManager.getCurrentTheme() == ThemeManager.Theme.DARK;
+            starIcon.setStyle("-fx-icon-color: " + (isDark ? "#8190A8" : "#8A94A8") + ";");
             favoriteStarBtn.setTooltip(new Tooltip("Add to Favorites (Ctrl+D)"));
         }
     }
@@ -879,6 +889,7 @@ public class MainWindow {
                 if (result.updateAvailable()) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.initOwner(stage);
+                    ThemeManager.applyTheme(alert, settings);
                     alert.setTitle("Update Available");
                     alert.setHeaderText("New version v" + result.latestVersion() + " is available!");
                     alert.setContentText("Current version: " + result.currentVersion() + "\n\n" +
@@ -899,6 +910,7 @@ public class MainWindow {
                 } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.initOwner(stage);
+                    ThemeManager.applyTheme(alert, settings);
                     alert.setTitle("No Updates Found");
                     alert.setHeaderText("You are using the latest version");
                     alert.setContentText("Current version: " + result.currentVersion() + "\n" + result.releaseNotes());

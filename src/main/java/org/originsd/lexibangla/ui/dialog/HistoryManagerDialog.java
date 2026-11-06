@@ -86,6 +86,7 @@ public class HistoryManagerDialog {
         clearAllBtn.setOnAction(e -> {
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to clear your entire search history?", ButtonType.YES, ButtonType.NO);
             confirm.initOwner(dialog);
+            ThemeManager.applyTheme(confirm, settings);
             confirm.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.YES) {
                     repository.clearSearchHistory();

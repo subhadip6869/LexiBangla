@@ -70,7 +70,7 @@
 
 .ribbon-content-area {
     -fx-background-color: -color-surface-secondary;
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 8 8 8;
 }
 
 .ribbon-tab-content {
@@ -82,14 +82,14 @@
     -fx-border-color: -color-border;
     -fx-border-radius: 6;
     -fx-background-radius: 6;
-    -fx-padding: 4 6 2 6;
+    -fx-padding: 3 8 4 8;
 }
 
 .ribbon-group-title {
     -fx-font-size: 10px;
     -fx-text-fill: -color-text-muted;
     -fx-font-weight: 600;
-    -fx-padding: 2 0 0 0;
+    -fx-padding: 2 0 1 0;
 }
 
 .ribbon-group-divider {
@@ -178,6 +178,14 @@
     -fx-background-color: -color-selected;
 }
 
+.search-clear-btn .ikonli-font-icon {
+    -fx-icon-color: -color-text-muted;
+}
+
+.search-clear-btn:hover .ikonli-font-icon {
+    -fx-icon-color: -color-text-primary;
+}
+
 .mode-selector {
     -fx-background-color: -color-surface-secondary;
     -fx-border-color: -color-border;
@@ -261,12 +269,24 @@
 .favorite-star-btn {
     -fx-background-color: transparent;
     -fx-cursor: hand;
-    -fx-padding: 6;
+    -fx-padding: 4 6 4 6;
     -fx-background-radius: 6;
 }
 
 .favorite-star-btn:hover {
     -fx-background-color: -color-selected;
+}
+
+.favorite-star-btn .ikonli-font-icon {
+    -fx-icon-color: -color-text-muted;
+}
+
+.favorite-star-btn:hover .ikonli-font-icon {
+    -fx-icon-color: #F59E0B;
+}
+
+.favorite-star-btn.favorited .ikonli-font-icon {
+    -fx-icon-color: #F59E0B;
 }
 
 .meaning-card {
@@ -329,6 +349,10 @@
     -fx-background-color: -color-primary-hover;
 }
 
+.action-btn-primary .ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
 .action-btn-secondary {
     -fx-background-color: -color-surface-secondary;
     -fx-text-fill: -color-text-primary;
@@ -342,6 +366,23 @@
 .action-btn-secondary:hover {
     -fx-background-color: -color-selected;
     -fx-border-color: -color-focus-ring;
+}
+
+.action-btn-secondary .ikonli-font-icon {
+    -fx-icon-color: -color-text-primary;
+}
+
+.action-btn-secondary:hover .ikonli-font-icon {
+    -fx-icon-color: -color-primary;
+}
+
+/* Base button icon styling */
+.button .ikonli-font-icon {
+    -fx-icon-color: -color-text-primary;
+}
+
+.button:disabled .ikonli-font-icon {
+    -fx-icon-color: -color-text-muted;
 }
 
 /* =========================================================
@@ -370,8 +411,8 @@
 }
 
 .status-badge-offline {
-    -fx-background-color: #E6F7ED;
-    -fx-text-fill: -color-success;
+    -fx-background-color: -color-badge-offline-bg;
+    -fx-text-fill: -color-badge-offline-text;
     -fx-font-size: 11px;
     -fx-font-weight: 600;
     -fx-padding: 2 8 2 8;
@@ -402,4 +443,310 @@
 .welcome-description {
     -fx-font-size: 14px;
     -fx-text-fill: -color-text-secondary;
+}
+
+/* =========================================================
+   Base Typography & Global Controls (Ensures crisp contrast in both themes)
+   ========================================================= */
+.label {
+    -fx-text-fill: -color-text-primary;
+}
+
+.hyperlink {
+    -fx-text-fill: -color-primary;
+    -fx-underline: false;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: -color-primary-hover;
+    -fx-underline: true;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: -color-primary;
+}
+
+.separator *.line {
+    -fx-border-color: -color-border;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* CheckBox */
+.check-box {
+    -fx-text-fill: -color-text-primary;
+}
+
+.check-box .box {
+    -fx-background-color: -color-surface-secondary;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: -color-primary;
+    -fx-border-color: -color-primary;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:focused .box {
+    -fx-border-color: -color-focus-ring;
+}
+
+/* RadioButton */
+.radio-button {
+    -fx-text-fill: -color-text-primary;
+}
+
+.radio-button .radio {
+    -fx-background-color: -color-surface-secondary;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.radio-button:selected .radio {
+    -fx-border-color: -color-primary;
+}
+
+.radio-button:selected .dot {
+    -fx-background-color: -color-primary;
+}
+
+/* ComboBox & ChoiceBox */
+.combo-box, .choice-box {
+    -fx-background-color: -color-surface-secondary;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.combo-box:focused, .choice-box:focused {
+    -fx-border-color: -color-focus-ring;
+}
+
+.combo-box .cell, .choice-box .label {
+    -fx-text-fill: -color-text-primary;
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -color-text-primary;
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow-button .arrow, .choice-box .arrow-button .arrow {
+    -fx-background-color: -color-text-secondary;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -color-surface;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0, 0, 4);
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: -color-surface;
+    -fx-text-fill: -color-text-primary;
+    -fx-padding: 6 10 6 10;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: -color-selected;
+    -fx-text-fill: -color-primary;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: -color-selected;
+    -fx-text-fill: -color-primary;
+}
+
+/* Spinner */
+.spinner {
+    -fx-background-color: -color-surface-secondary;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.spinner:focused {
+    -fx-border-color: -color-focus-ring;
+}
+
+.spinner .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-primary;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: transparent;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-background-color: -color-selected;
+}
+
+.spinner .increment-arrow-button .increment-arrow,
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: -color-text-secondary;
+}
+
+/* TableView Controls & Headers */
+.table-view {
+    -fx-background-color: -color-surface;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -color-surface-secondary;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 8 6 8 6;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-weight: 600;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: -color-surface;
+    -fx-border-color: -color-divider;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: -color-surface;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: -color-surface-secondary;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: -color-selected;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: -color-text-primary;
+    -fx-padding: 8 10 8 10;
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: -color-text-muted;
+}
+
+/* DialogPane and Alerts */
+.dialog-pane {
+    -fx-background-color: -color-surface;
+}
+
+.dialog-pane > *.button-bar > *.container {
+    -fx-background-color: -color-surface;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: -color-text-primary;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: -color-surface-secondary;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-text-fill: -color-text-primary;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: -color-surface-secondary;
+    -fx-text-fill: -color-text-primary;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 6 14 6 14;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: -color-selected;
+}
+
+.dialog-pane .button-bar .button:default {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button-bar .button:default:hover {
+    -fx-background-color: -color-primary-hover;
+}
+
+/* ScrollBar */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: -color-border;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: -color-text-muted;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+/* Dialog-specific helper classes */
+.about-secondary-label {
+    -fx-text-fill: -color-text-secondary;
+}
+
+.about-muted-label {
+    -fx-text-fill: -color-text-muted;
+    -fx-font-size: 11px;
+}
+
+.db-info-key {
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-weight: 500;
+}
+
+.db-info-val {
+    -fx-text-fill: -color-text-primary;
+    -fx-font-weight: bold;
 }
