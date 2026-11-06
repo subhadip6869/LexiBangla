@@ -125,10 +125,11 @@ public class SettingsDialog {
         btnBox.getChildren().addAll(cancelBtn, saveBtn);
         root.getChildren().addAll(header, grid, btnBox);
 
-        Scene scene = new Scene(root, 440, 450);
+        Scene scene = new Scene(root, 460, 480);
         ThemeManager.applyTheme(scene, settings);
 
         dialog.setScene(scene);
+        dialog.sizeToScene();
         dialog.showAndWait();
     }
 }
