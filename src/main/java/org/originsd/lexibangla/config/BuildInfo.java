@@ -13,7 +13,7 @@ public final class BuildInfo {
     private static final Logger log = LoggerFactory.getLogger(BuildInfo.class);
     private static final Properties properties = new Properties();
 
-    private static final String DEFAULT_VERSION = "1.0.0-SNAPSHOT";
+    private static final String DEFAULT_VERSION = "1.0.1";
 
     static {
         try (InputStream in = BuildInfo.class.getResourceAsStream("/build-info.properties")) {

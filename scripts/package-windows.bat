@@ -36,7 +36,7 @@ jpackage ^
   --type exe ^
   --dest dist\ ^
   --name "LexiBangla" ^
-  --app-version "1.0.0" ^
+  --app-version "1.0.1" ^
   --vendor "OriginSD" ^
   --copyright "© 2026 OriginSD" ^
   --description "English-to-Bengali Offline Dictionary" ^

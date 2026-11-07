@@ -114,7 +114,7 @@ mvn javafx:run
 
 Or running the packaged JAR:
 ```bash
-java -jar target/lexibangla-1.0.0-SNAPSHOT-all.jar
+java -jar target/lexibangla-1.0.1-SNAPSHOT-all.jar
 ```
 
 ---
