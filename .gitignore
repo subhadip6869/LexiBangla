@@ -43,3 +43,7 @@ dependency-reduced-pom.xml
 
 ### Mac OS ###
 .DS_Store
+
+### Local Machine JVM Configs ###
+.mvn/jvm.config
+installer.log

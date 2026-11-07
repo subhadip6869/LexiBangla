@@ -19,6 +19,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.kordamp.ikonli.feather.Feather;
@@ -449,7 +451,7 @@ public class MainWindow {
                     if (userRepo.isFavorite(item.word())) {
                         FontIcon favStar = new FontIcon(Feather.STAR);
                         favStar.setIconSize(12);
-                        favStar.setStyle("-fx-icon-color: #E6B45C;");
+                        favStar.setIconColor(Color.web("#F59E0B"));
                         cellBox.getChildren().addAll(textCol, spacer, favStar);
                     } else {
                         cellBox.getChildren().addAll(textCol);
@@ -481,7 +483,7 @@ public class MainWindow {
 
         FontIcon bookIcon = new FontIcon(Feather.BOOK_OPEN);
         bookIcon.setIconSize(64);
-        bookIcon.setStyle("-fx-icon-color: -color-border;");
+        bookIcon.setIconColor(Color.web("#8190A8"));
 
         Label placeholderTitle = new Label("LexiBangla Desktop");
         placeholderTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;");
@@ -716,16 +718,16 @@ public class MainWindow {
 
     private void updateFavoriteStarState(String word) {
         boolean isFav = userRepo.isFavorite(word);
+        boolean isDark = ThemeManager.getCurrentTheme() == ThemeManager.Theme.DARK;
         if (isFav) {
             if (!favoriteStarBtn.getStyleClass().contains("favorited")) {
                 favoriteStarBtn.getStyleClass().add("favorited");
             }
-            starIcon.setStyle("-fx-icon-color: #F59E0B;");
+            starIcon.setIconColor(Color.web("#F59E0B"));
             favoriteStarBtn.setTooltip(new Tooltip("Remove from Favorites (Ctrl+D)"));
         } else {
             favoriteStarBtn.getStyleClass().remove("favorited");
-            boolean isDark = ThemeManager.getCurrentTheme() == ThemeManager.Theme.DARK;
-            starIcon.setStyle("-fx-icon-color: " + (isDark ? "#8190A8" : "#8A94A8") + ";");
+            starIcon.setIconColor(Color.web(isDark ? "#8190A8" : "#8A94A8"));
             favoriteStarBtn.setTooltip(new Tooltip("Add to Favorites (Ctrl+D)"));
         }
     }

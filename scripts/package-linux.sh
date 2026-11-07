@@ -37,6 +37,12 @@ echo "Optimized JRE created at target/custom-runtime"
 echo "=== [3/4] Packaging Native DEB Installer with jpackage ==="
 mkdir -p dist
 
+# Stage only the shaded JAR into a dedicated input folder so that intermediate build files,
+# unshaded jars, and target/custom-runtime do not leak into the /app directory
+rm -rf target/package-input
+mkdir -p target/package-input
+cp "$SHADED_JAR" target/package-input/
+
 jpackage \
   --type deb \
   --dest dist/ \
@@ -45,7 +51,7 @@ jpackage \
   --vendor "$APP_VENDOR" \
   --description "$APP_DESCRIPTION" \
   --icon "$ICON_PATH" \
-  --input target/ \
+  --input target/package-input \
   --main-jar "$JAR_FILENAME" \
   --main-class "$MAIN_CLASS" \
   --runtime-image target/custom-runtime \
@@ -62,7 +68,7 @@ if command -v rpmbuild &> /dev/null; then
     --vendor "$APP_VENDOR" \
     --description "$APP_DESCRIPTION" \
     --icon "$ICON_PATH" \
-    --input target/ \
+    --input target/package-input \
     --main-jar "$JAR_FILENAME" \
     --main-class "$MAIN_CLASS" \
     --runtime-image target/custom-runtime \

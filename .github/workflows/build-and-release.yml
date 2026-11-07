@@ -25,6 +25,13 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Clean platform-specific JVM config on non-Windows
+        if: runner.os != 'Windows'
+        run: |
+          if [ -f .mvn/jvm.config ]; then
+            sed -i '/WINDOWS-ROOT/d' .mvn/jvm.config || rm -f .mvn/jvm.config
+          fi
+
       - name: Run Maven Tests
         run: mvn test --batch-mode
 
@@ -59,6 +66,13 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Clean platform-specific JVM config on non-Windows
+        if: runner.os != 'Windows'
+        run: |
+          if [ -f .mvn/jvm.config ]; then
+            sed -i '/WINDOWS-ROOT/d' .mvn/jvm.config || rm -f .mvn/jvm.config
+          fi
+
       - name: Build Fat JAR
         run: mvn clean package -DskipTests --batch-mode
 
@@ -76,6 +90,10 @@ jobs:
         run: |
           mkdir -Force dist
           $jar = (Get-ChildItem target/lexibangla-*-all.jar | Select-Object -First 1).Name
+          $packageInput = "target\package-input"
+          if (Test-Path $packageInput) { Remove-Item -Recurse -Force $packageInput }
+          New-Item -ItemType Directory -Path $packageInput | Out-Null
+          Copy-Item "target\$jar" -Destination $packageInput
           jpackage `
             --type exe `
             --dest dist `
@@ -84,7 +102,7 @@ jobs:
             --vendor "OriginSD" `
             --description "English-to-Bengali Offline Dictionary" `
             --icon src/main/resources/lexibangla-logo.ico `
-            --input target `
+            --input $packageInput `
             --main-jar $jar `
             --main-class org.originsd.lexibangla.Launcher `
             --runtime-image target/custom-runtime `
@@ -97,6 +115,9 @@ jobs:
         run: |
           mkdir -p dist
           JAR_FILE=$(basename $(ls target/lexibangla-*-all.jar | head -n 1))
+          rm -rf target/package-input
+          mkdir -p target/package-input
+          cp "target/$JAR_FILE" target/package-input/
           jpackage \
             --type deb \
             --dest dist \
@@ -105,7 +126,7 @@ jobs:
             --vendor "OriginSD" \
             --description "English-to-Bengali Offline Dictionary" \
             --icon src/main/resources/icons/lexibangla-logo.png \
-            --input target \
+            --input target/package-input \
             --main-jar "$JAR_FILE" \
             --main-class org.originsd.lexibangla.Launcher \
             --runtime-image target/custom-runtime \
@@ -117,6 +138,9 @@ jobs:
         run: |
           mkdir -p dist
           JAR_FILE=$(basename $(ls target/lexibangla-*-all.jar | head -n 1))
+          rm -rf target/package-input
+          mkdir -p target/package-input
+          cp "target/$JAR_FILE" target/package-input/
           jpackage \
             --type dmg \
             --dest dist \
@@ -125,7 +149,7 @@ jobs:
             --vendor "OriginSD" \
             --mac-package-name "LexiBangla" \
             --mac-package-identifier "org.originsd.lexibangla" \
-            --input target \
+            --input target/package-input \
             --main-jar "$JAR_FILE" \
             --main-class org.originsd.lexibangla.Launcher \
             --runtime-image target/custom-runtime

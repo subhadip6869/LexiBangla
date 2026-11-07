@@ -278,6 +278,7 @@
 }
 
 .favorite-star-btn .ikonli-font-icon {
+    -fx-font-family: "FeatherIcons";
     -fx-icon-color: -color-text-muted;
 }
 
@@ -286,6 +287,7 @@
 }
 
 .favorite-star-btn.favorited .ikonli-font-icon {
+    -fx-font-family: "FeatherIcons";
     -fx-icon-color: #F59E0B;
 }
 
