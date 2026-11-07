@@ -12,15 +12,20 @@ class UpdateServiceTest {
     @Test
     @DisplayName("Verify Semantic Version comparison logic")
     void testSemanticVersioning() {
-        assertTrue(UpdateService.isNewerVersion("1.0.0", "1.0.1"));
-        assertTrue(UpdateService.isNewerVersion("1.0.0", "1.1.0"));
-        assertTrue(UpdateService.isNewerVersion("1.0.0", "2.0.0"));
-        assertTrue(UpdateService.isNewerVersion("1.0.0-SNAPSHOT", "1.0.0"));
-        assertTrue(UpdateService.isNewerVersion("v1.0.0", "v1.0.1"));
+        assertTrue(UpdateService.isNewerVersion("1.0.1", "1.0.2"));
+        assertTrue(UpdateService.isNewerVersion("1.0.1-SNAPSHOT", "1.0.2"));
+        assertTrue(UpdateService.isNewerVersion("1.0.1", "1.1.0"));
+        assertTrue(UpdateService.isNewerVersion("1.0.1", "2.0.0"));
+        assertTrue(UpdateService.isNewerVersion("v1.0.1", "v1.0.2"));
 
-        assertFalse(UpdateService.isNewerVersion("1.1.0", "1.0.0"));
-        assertFalse(UpdateService.isNewerVersion("1.0.1", "1.0.0"));
-        assertFalse(UpdateService.isNewerVersion("1.0.0", "1.0.0"));
+        assertFalse(UpdateService.isNewerVersion("1.0.1", "1.0.1"));
+        assertFalse(UpdateService.isNewerVersion("1.0.1-SNAPSHOT", "1.0.1"));
+        assertFalse(UpdateService.isNewerVersion("1.0.1", "1.0.1-SNAPSHOT"));
+        assertFalse(UpdateService.isNewerVersion("1.0.1-SNAPSHOT", "v1.0.1"));
+        assertFalse(UpdateService.isNewerVersion("v1.0.1", "1.0.1"));
+        assertFalse(UpdateService.isNewerVersion("1.0.1", "v1.0.1"));
+        assertFalse(UpdateService.isNewerVersion("1.1.0", "1.0.1"));
+        assertFalse(UpdateService.isNewerVersion("1.0.2", "1.0.1"));
         assertFalse(UpdateService.isNewerVersion("2.0.0", "1.9.9"));
     }
 

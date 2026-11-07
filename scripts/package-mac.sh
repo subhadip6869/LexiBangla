@@ -8,7 +8,7 @@
 set -euo pipefail
 
 APP_NAME="LexiBangla"
-APP_VERSION="1.0.0"
+APP_VERSION="1.0.1"
 APP_VENDOR="OriginSD"
 APP_IDENTIFIER="org.originsd.lexibangla"
 MAIN_CLASS="org.originsd.lexibangla.Launcher"
