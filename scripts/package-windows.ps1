@@ -44,15 +44,24 @@ if (-not (Test-Path dist)) {
 }
 
 Write-Host "=== [3/3] Generating Native Windows EXE Installer with jpackage ===" -ForegroundColor Cyan
+# Stage only the shaded JAR into a dedicated input folder so that intermediate build files,
+# unshaded jars, and target/custom-runtime do not leak into the /app directory
+$packageInput = "target\package-input"
+if (Test-Path $packageInput) {
+    Remove-Item -Recurse -Force $packageInput
+}
+New-Item -ItemType Directory -Path $packageInput | Out-Null
+Copy-Item $shadedJar.FullName -Destination $packageInput
+
 jpackage `
   --type exe `
-  --dest dist/ `
+  --dest dist `
   --name $APP_NAME `
   --app-version $APP_VERSION `
   --vendor $APP_VENDOR `
   --description $APP_DESCRIPTION `
   --icon $ICON_PATH `
-  --input target/ `
+  --input $packageInput `
   --main-jar $jarFilename `
   --main-class $MAIN_CLASS `
   --runtime-image target/custom-runtime `

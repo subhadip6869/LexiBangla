@@ -27,6 +27,11 @@ jlink --no-header-files --no-man-pages --strip-debug --compress=2 --add-modules 
 if not exist dist mkdir dist
 
 echo === [3/3] Generating Native Windows EXE Installer with jpackage ===
+REM Stage only the shaded JAR into a dedicated input folder to prevent target files & custom-runtime leaking into /app
+if exist target\package-input rmdir /s /q target\package-input
+mkdir target\package-input
+copy "target\%JAR_FILENAME%" "target\package-input\" >nul
+
 jpackage ^
   --type exe ^
   --dest dist\ ^
@@ -35,7 +40,7 @@ jpackage ^
   --vendor "OriginSD" ^
   --description "English-to-Bengali Offline Dictionary" ^
   --icon "src\main\resources\lexibangla-logo.ico" ^
-  --input target\ ^
+  --input target\package-input ^
   --main-jar "%JAR_FILENAME%" ^
   --main-class "org.originsd.lexibangla.Launcher" ^
   --runtime-image target\custom-runtime ^
