@@ -89,18 +89,20 @@ public class UpdateService {
     }
 
     /**
-     * Compares two semantic versions (e.g. "1.0.0" and "1.1.0").
+     * Compares two semantic versions (e.g. "1.0.1" and "1.1.0").
      * Returns true if target is strictly newer than current.
+     * If the versions match (including matching release to SNAPSHOT), returns false.
      */
     public static boolean isNewerVersion(String current, String target) {
         if (target == null || target.isBlank()) return false;
         if (current == null || current.isBlank()) return true;
 
-        boolean currentIsSnapshot = current.contains("-SNAPSHOT");
-        boolean targetIsSnapshot = target.contains("-SNAPSHOT");
-
         String cleanCurrent = current.replaceFirst("^v", "").replaceAll("-SNAPSHOT$", "").trim();
         String cleanTarget = target.replaceFirst("^v", "").replaceAll("-SNAPSHOT$", "").trim();
+
+        if (cleanCurrent.equalsIgnoreCase(cleanTarget)) {
+            return false;
+        }
 
         String[] curParts = cleanCurrent.split("\\.");
         String[] tgtParts = cleanTarget.split("\\.");
@@ -122,11 +124,6 @@ public class UpdateService {
 
             if (tgtNum > curNum) return true;
             if (tgtNum < curNum) return false;
-        }
-
-        // If numerical versions are equal, a release (non-snapshot) is newer than a SNAPSHOT
-        if (currentIsSnapshot && !targetIsSnapshot) {
-            return true;
         }
 
         return false;
