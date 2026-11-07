@@ -38,6 +38,7 @@ jpackage ^
   --name "LexiBangla" ^
   --app-version "1.0.0" ^
   --vendor "OriginSD" ^
+  --copyright "© 2026 OriginSD" ^
   --description "English-to-Bengali Offline Dictionary" ^
   --icon "src\main\resources\lexibangla-logo.ico" ^
   --input target\package-input ^
