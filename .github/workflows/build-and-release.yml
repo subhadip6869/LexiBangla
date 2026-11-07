@@ -47,9 +47,11 @@ jobs:
             artifact-name: LexiBangla-Windows
             installer-glob: dist/*.exe
           - os: ubuntu-latest
-            pkg-type: deb
+            pkg-type: deb,rpm
             artifact-name: LexiBangla-Linux
-            installer-glob: dist/*.deb
+            installer-glob: |
+              dist/*.deb
+              dist/*.rpm
           - os: macos-latest
             pkg-type: dmg
             artifact-name: LexiBangla-macOS
@@ -107,7 +109,13 @@ jobs:
           )
           & jpackage @jpackageArgs
 
-      - name: Package Native Installer with jpackage (Linux)
+      - name: Install RPM Build Tools (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm
+
+      - name: Package Native Installers with jpackage (Linux)
         if: runner.os == 'Linux'
         run: |
           mkdir -p dist
@@ -117,6 +125,21 @@ jobs:
           cp "target/$JAR_FILE" target/package-input/
           jpackage \
             --type deb \
+            --dest dist \
+            --name "LexiBangla" \
+            --app-version "1.0.1" \
+            --vendor "OriginSD" \
+            --copyright "© 2026 OriginSD" \
+            --description "English-to-Bengali Offline Dictionary" \
+            --icon src/main/resources/icons/lexibangla-logo.png \
+            --input target/package-input \
+            --main-jar "$JAR_FILE" \
+            --main-class org.originsd.lexibangla.Launcher \
+            --runtime-image target/custom-runtime \
+            --linux-shortcut \
+            --linux-menu-group "Education;Dictionary;"
+          jpackage \
+            --type rpm \
             --dest dist \
             --name "LexiBangla" \
             --app-version "1.0.1" \
