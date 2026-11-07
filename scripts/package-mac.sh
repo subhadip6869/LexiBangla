@@ -49,6 +49,7 @@ jpackage \
   --name "$APP_NAME" \
   --app-version "$APP_VERSION" \
   --vendor "$APP_VENDOR" \
+  --copyright "© 2026 OriginSD" \
   --mac-package-name "$APP_NAME" \
   --mac-package-identifier "$APP_IDENTIFIER" \
   --input target/package-input \

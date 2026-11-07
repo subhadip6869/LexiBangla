@@ -53,21 +53,25 @@ if (Test-Path $packageInput) {
 New-Item -ItemType Directory -Path $packageInput | Out-Null
 Copy-Item $shadedJar.FullName -Destination $packageInput
 
-jpackage `
-  --type exe `
-  --dest dist `
-  --name $APP_NAME `
-  --app-version $APP_VERSION `
-  --vendor $APP_VENDOR `
-  --description $APP_DESCRIPTION `
-  --icon $ICON_PATH `
-  --input $packageInput `
-  --main-jar $jarFilename `
-  --main-class $MAIN_CLASS `
-  --runtime-image target/custom-runtime `
-  --win-menu `
-  --win-shortcut `
-  --win-dir-chooser
+$jpackageArgs = @(
+    "--type", "exe",
+    "--dest", "dist",
+    "--name", $APP_NAME,
+    "--app-version", $APP_VERSION,
+    "--vendor", $APP_VENDOR,
+    "--copyright", "© 2026 OriginSD",
+    "--description", $APP_DESCRIPTION,
+    "--icon", $ICON_PATH,
+    "--input", $packageInput,
+    "--main-jar", $jarFilename,
+    "--main-class", $MAIN_CLASS,
+    "--runtime-image", "target/custom-runtime",
+    "--win-menu",
+    "--win-shortcut",
+    "--win-dir-chooser"
+)
+
+& jpackage @jpackageArgs
 
 Write-Host "`n=== Native Windows EXE Installer Created Successfully in dist/ ===" -ForegroundColor Green
 Get-ChildItem dist/*.exe
