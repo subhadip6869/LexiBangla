@@ -8,10 +8,10 @@
 set -euo pipefail
 
 APP_NAME="LexiBangla"
-APP_VERSION="1.0.1"
+APP_VERSION="1.1.0"
 APP_VENDOR="OriginSD"
-APP_IDENTIFIER="org.originsd.lexibangla"
-MAIN_CLASS="org.originsd.lexibangla.Launcher"
+APP_IDENTIFIER="app.vercel.originsd.lexibangla"
+MAIN_CLASS="app.vercel.originsd.lexibangla.Launcher"
 ICON_PATH="src/main/resources/icons/lexibangla-logo.png"
 
 echo "=== [1/3] Building Application JAR with Maven ==="
@@ -52,6 +52,8 @@ jpackage \
   --copyright "© 2026 OriginSD" \
   --mac-package-name "$APP_NAME" \
   --mac-package-identifier "$APP_IDENTIFIER" \
+  --about-url "https://originsd.vercel.app" \
+  --install-dir "/Applications/OriginSD" \
   --input target/package-input \
   --main-jar "$JAR_FILENAME" \
   --main-class "$MAIN_CLASS" \

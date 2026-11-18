@@ -1,0 +1,90 @@
+package app.vercel.originsd.lexibangla.config;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Global application configuration and environment detection.
+ */
+public final class AppConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(AppConfig.class);
+
+    public static final String APP_NAME = "LexiBangla Desktop";
+    public static final String PUBLISHER = "OriginSD";
+    public static final String DEVELOPER = "Subhadip Dutta";
+    public static final String WEBSITE_URL = "https://originsd.vercel.app";
+    public static final String REPO_URL = "https://github.com/subhadip6869/LexiBangla.git";
+    public static final String RELEASES_API_URL = "https://api.github.com/repos/subhadip6869/LexiBangla/releases/latest";
+    public static final String LOCATION = "Bankura, West Bengal, India";
+    public static final String TAGLINE = "Words Connect Worlds.";
+    public static final String DESCRIPTION = "English-to-Bengali Offline Dictionary";
+    public static final String COPYRIGHT = "© 2026 OriginSD";
+
+    public static final String MASTER_DB_FILENAME = "dictionary.sqlite";
+    public static final String USER_DB_FILENAME = "lexibangla-user.sqlite";
+    public static final String SETTINGS_FILENAME = "settings.json";
+
+    private AppConfig() {}
+
+    /**
+     * Resolves the OS-appropriate application data directory:
+     * - Windows: %LOCALAPPDATA%/OriginSD/LexiBangla/
+     * - Linux: ~/.local/share/OriginSD/LexiBangla/ (or $XDG_DATA_HOME/OriginSD/LexiBangla/)
+     * - macOS: ~/Library/Application Support/OriginSD/LexiBangla/
+     */
+    public static Path getUserDataDirectory() {
+        String osName = System.getProperty("os.name", "").toLowerCase();
+        Path dir;
+
+        if (osName.contains("win")) {
+            String localAppData = System.getenv("LOCALAPPDATA");
+            if (localAppData == null || localAppData.isBlank()) {
+                localAppData = System.getProperty("user.home") + "\\AppData\\Local";
+            }
+            dir = Paths.get(localAppData, "OriginSD", "LexiBangla");
+        } else if (osName.contains("mac")) {
+            dir = Paths.get(System.getProperty("user.home"), "Library", "Application Support", "OriginSD", "LexiBangla");
+            Path legacyMacDir = Paths.get(System.getProperty("user.home"), "Library", "Application Support", "LexiBangla");
+            if (!Files.exists(dir) && Files.exists(legacyMacDir)) {
+                dir = legacyMacDir;
+            }
+        } else {
+            // Linux and other UNIX systems (XDG Base Directory standard)
+            String xdgDataHome = System.getenv("XDG_DATA_HOME");
+            if (xdgDataHome != null && !xdgDataHome.isBlank()) {
+                dir = Paths.get(xdgDataHome, "OriginSD", "LexiBangla");
+            } else {
+                dir = Paths.get(System.getProperty("user.home"), ".local", "share", "OriginSD", "LexiBangla");
+            }
+            Path legacyLinuxDir = (xdgDataHome != null && !xdgDataHome.isBlank())
+                    ? Paths.get(xdgDataHome, "lexibangla")
+                    : Paths.get(System.getProperty("user.home"), ".local", "share", "lexibangla");
+            if (!Files.exists(dir) && Files.exists(legacyLinuxDir)) {
+                dir = legacyLinuxDir;
+            }
+        }
+
+        try {
+            if (!Files.exists(dir)) {
+                Files.createDirectories(dir);
+                log.info("Created user data directory: {}", dir);
+            }
+        } catch (Exception e) {
+            log.error("Failed to create user data directory: {}", dir, e);
+        }
+
+        return dir;
+    }
+
+    public static Path getUserDatabasePath() {
+        return getUserDataDirectory().resolve(USER_DB_FILENAME);
+    }
+
+    public static Path getSettingsPath() {
+        return getUserDataDirectory().resolve(SETTINGS_FILENAME);
+    }
+}

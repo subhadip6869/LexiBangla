@@ -1,4 +1,4 @@
-<#
+﻿<#
  ==============================================================================
  LexiBangla Desktop - Windows Native Packaging Script with Optimized Bundled JRE
  Target output: Native Windows EXE installer (with zero host JRE dependency)
@@ -8,10 +8,10 @@
 $ErrorActionPreference = "Stop"
 
 $APP_NAME = "LexiBangla"
-$APP_VERSION = "1.0.1"
+$APP_VERSION = "1.1.0"
 $APP_VENDOR = "OriginSD"
 $APP_DESCRIPTION = "English-to-Bengali Offline Dictionary"
-$MAIN_CLASS = "org.originsd.lexibangla.Launcher"
+$MAIN_CLASS = "app.vercel.originsd.lexibangla.Launcher"
 $ICON_PATH = "src\main\resources\lexibangla-logo.ico"
 
 Write-Host "=== [1/3] Building Shaded Application JAR with Maven ===" -ForegroundColor Cyan
@@ -62,13 +62,17 @@ $jpackageArgs = @(
     "--copyright", "© 2026 OriginSD",
     "--description", $APP_DESCRIPTION,
     "--icon", $ICON_PATH,
+    "--about-url", "https://originsd.vercel.app",
+    "--install-dir", "OriginSD\LexiBangla",
     "--input", $packageInput,
     "--main-jar", $jarFilename,
     "--main-class", $MAIN_CLASS,
     "--runtime-image", "target/custom-runtime",
     "--win-menu",
+    "--win-menu-group", $APP_VENDOR,
     "--win-shortcut",
-    "--win-dir-chooser"
+    "--win-dir-chooser",
+    "--win-help-url", "https://originsd.vercel.app"
 )
 
 & jpackage @jpackageArgs
