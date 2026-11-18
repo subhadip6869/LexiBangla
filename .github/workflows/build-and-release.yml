@@ -75,39 +75,12 @@ jobs:
             sed -i '/WINDOWS-ROOT/d' .mvn/jvm.config || rm -f .mvn/jvm.config
           fi
 
-      - name: Build Fat JAR
-        run: mvn clean package -DskipTests --batch-mode
-
-      - name: Build Optimized Bundled JRE with jlink
-        run: jlink --no-header-files --no-man-pages --strip-debug --compress=2 --add-modules java.base,java.compiler,java.desktop,java.instrument,java.naming,java.net.http,java.rmi,java.scripting,java.sql,java.xml,jdk.crypto.ec,jdk.localedata,jdk.unsupported --output target/custom-runtime
-
-      - name: Package Native Installer with jpackage (Windows EXE)
+      - name: Package Native Windows Installer
         if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          mkdir -Force dist
-          $jar = (Get-ChildItem target/lexibangla-*-all.jar | Select-Object -First 1).Name
-          $packageInput = "target\package-input"
-          if (Test-Path $packageInput) { Remove-Item -Recurse -Force $packageInput }
-          New-Item -ItemType Directory -Path $packageInput | Out-Null
-          Copy-Item "target\$jar" -Destination $packageInput
-          $jpackageArgs = @(
-            "--type", "exe",
-            "--dest", "dist",
-            "--name", "LexiBangla",
-            "--app-version", "1.1.0",
-            "--vendor", "OriginSD",
-            "--copyright", "© 2026 OriginSD",
-            "--description", "English-to-Bengali Offline Dictionary",
-            "--icon", "src/main/resources/lexibangla-logo.ico",
-            "--input", $packageInput,
-            "--main-jar", $jar,
-            "--main-class", "app.vercel.originsd.lexibangla.Launcher",
-            "--runtime-image", "target/custom-runtime",
-            "--win-menu",
-            "--win-shortcut",
-            "--win-dir-chooser"
-          )
-          & jpackage @jpackageArgs
+          Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+          ./scripts/package-windows.ps1
 
       - name: Install RPM Build Tools (Linux)
         if: runner.os == 'Linux'
@@ -115,66 +88,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y rpm
 
-      - name: Package Native Installers with jpackage (Linux)
+      - name: Package Native Linux Installers
         if: runner.os == 'Linux'
         run: |
-          mkdir -p dist
-          JAR_FILE=$(basename $(ls target/lexibangla-*-all.jar | head -n 1))
-          rm -rf target/package-input
-          mkdir -p target/package-input
-          cp "target/$JAR_FILE" target/package-input/
-          jpackage \
-            --type deb \
-            --dest dist \
-            --name "LexiBangla" \
-            --app-version "1.1.0" \
-            --vendor "OriginSD" \
-            --copyright "© 2026 OriginSD" \
-            --description "English-to-Bengali Offline Dictionary" \
-            --icon src/main/resources/icons/lexibangla-logo.png \
-            --input target/package-input \
-            --main-jar "$JAR_FILE" \
-            --main-class app.vercel.originsd.lexibangla.Launcher \
-            --runtime-image target/custom-runtime \
-            --linux-shortcut \
-            --linux-menu-group "Education;Dictionary;"
-          jpackage \
-            --type rpm \
-            --dest dist \
-            --name "LexiBangla" \
-            --app-version "1.1.0" \
-            --vendor "OriginSD" \
-            --copyright "© 2026 OriginSD" \
-            --description "English-to-Bengali Offline Dictionary" \
-            --icon src/main/resources/icons/lexibangla-logo.png \
-            --input target/package-input \
-            --main-jar "$JAR_FILE" \
-            --main-class app.vercel.originsd.lexibangla.Launcher \
-            --runtime-image target/custom-runtime \
-            --linux-shortcut \
-            --linux-menu-group "Education;Dictionary;"
+          chmod +x scripts/package-linux.sh
+          bash scripts/package-linux.sh
 
-      - name: Package Native Installer with jpackage (macOS)
+      - name: Package Native macOS Installer
         if: runner.os == 'macOS'
         run: |
-          mkdir -p dist
-          JAR_FILE=$(basename $(ls target/lexibangla-*-all.jar | head -n 1))
-          rm -rf target/package-input
-          mkdir -p target/package-input
-          cp "target/$JAR_FILE" target/package-input/
-          jpackage \
-            --type dmg \
-            --dest dist \
-            --name "LexiBangla" \
-            --app-version "1.1.0" \
-            --vendor "OriginSD" \
-            --copyright "© 2026 OriginSD" \
-            --mac-package-name "LexiBangla" \
-            --mac-package-identifier "app.vercel.originsd.lexibangla" \
-            --input target/package-input \
-            --main-jar "$JAR_FILE" \
-            --main-class app.vercel.originsd.lexibangla.Launcher \
-            --runtime-image target/custom-runtime
+          chmod +x scripts/package-mac.sh
+          bash scripts/package-mac.sh
 
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4

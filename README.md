@@ -129,7 +129,7 @@ Each script produces an optimized, self-contained native package with a **bundle
 
 | Target Platform | Package Format | Execution Instruction | Output Location |
 |---|---|---|---|
-| **Windows** | Native `.exe` Installer *(Setup Wizard)* | `.\scripts\package-windows.ps1`<br>*(or `scripts\package-windows.bat`)* | `dist\*.exe` |
+| **Windows** | Native `.exe` Installer *(Setup Wizard)* | `.\scripts\package-windows.ps1` | `dist\*.exe` |
 | **Linux** | Native `.deb` & `.rpm` Packages | `chmod +x scripts/package-linux.sh`<br>`./scripts/package-linux.sh` | `dist/*.deb` & `dist/*.rpm` |
 | **macOS** | Native `.dmg` Disk Image *(ARM64 & Intel)* | `chmod +x scripts/package-mac.sh`<br>`./scripts/package-mac.sh` | `dist/*.dmg` |
 
