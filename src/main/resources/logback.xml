@@ -8,7 +8,7 @@
 
     <!-- Silence verbose Hibernate DDL and SQL logs in normal runs -->
     <logger name="org.hibernate" level="WARN"/>
-    <logger name="org.originsd.lexibangla" level="INFO"/>
+    <logger name="app.vercel.originsd.lexibangla" level="INFO"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
