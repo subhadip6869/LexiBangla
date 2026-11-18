@@ -62,13 +62,17 @@ $jpackageArgs = @(
     "--copyright", "© 2026 OriginSD",
     "--description", $APP_DESCRIPTION,
     "--icon", $ICON_PATH,
+    "--about-url", "https://originsd.vercel.app",
+    "--install-dir", "OriginSD\LexiBangla",
     "--input", $packageInput,
     "--main-jar", $jarFilename,
     "--main-class", $MAIN_CLASS,
     "--runtime-image", "target/custom-runtime",
     "--win-menu",
+    "--win-menu-group", $APP_VENDOR,
     "--win-shortcut",
-    "--win-dir-chooser"
+    "--win-dir-chooser",
+    "--win-help-url", "https://originsd.vercel.app"
 )
 
 & jpackage @jpackageArgs

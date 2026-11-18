@@ -33,8 +33,8 @@ public final class AppConfig {
     /**
      * Resolves the OS-appropriate application data directory:
      * - Windows: %LOCALAPPDATA%/OriginSD/LexiBangla/
-     * - Linux: ~/.local/share/lexibangla/
-     * - macOS: ~/Library/Application Support/LexiBangla/
+     * - Linux: ~/.local/share/OriginSD/LexiBangla/ (or $XDG_DATA_HOME/OriginSD/LexiBangla/)
+     * - macOS: ~/Library/Application Support/OriginSD/LexiBangla/
      */
     public static Path getUserDataDirectory() {
         String osName = System.getProperty("os.name", "").toLowerCase();
@@ -47,14 +47,24 @@ public final class AppConfig {
             }
             dir = Paths.get(localAppData, "OriginSD", "LexiBangla");
         } else if (osName.contains("mac")) {
-            dir = Paths.get(System.getProperty("user.home"), "Library", "Application Support", "LexiBangla");
+            dir = Paths.get(System.getProperty("user.home"), "Library", "Application Support", "OriginSD", "LexiBangla");
+            Path legacyMacDir = Paths.get(System.getProperty("user.home"), "Library", "Application Support", "LexiBangla");
+            if (!Files.exists(dir) && Files.exists(legacyMacDir)) {
+                dir = legacyMacDir;
+            }
         } else {
             // Linux and other UNIX systems (XDG Base Directory standard)
             String xdgDataHome = System.getenv("XDG_DATA_HOME");
             if (xdgDataHome != null && !xdgDataHome.isBlank()) {
-                dir = Paths.get(xdgDataHome, "lexibangla");
+                dir = Paths.get(xdgDataHome, "OriginSD", "LexiBangla");
             } else {
-                dir = Paths.get(System.getProperty("user.home"), ".local", "share", "lexibangla");
+                dir = Paths.get(System.getProperty("user.home"), ".local", "share", "OriginSD", "LexiBangla");
+            }
+            Path legacyLinuxDir = (xdgDataHome != null && !xdgDataHome.isBlank())
+                    ? Paths.get(xdgDataHome, "lexibangla")
+                    : Paths.get(System.getProperty("user.home"), ".local", "share", "lexibangla");
+            if (!Files.exists(dir) && Files.exists(legacyLinuxDir)) {
+                dir = legacyLinuxDir;
             }
         }
 

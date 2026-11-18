@@ -52,6 +52,8 @@ jpackage \
   --copyright "© 2026 OriginSD" \
   --mac-package-name "$APP_NAME" \
   --mac-package-identifier "$APP_IDENTIFIER" \
+  --about-url "https://originsd.vercel.app" \
+  --install-dir "/Applications/OriginSD" \
   --input target/package-input \
   --main-jar "$JAR_FILENAME" \
   --main-class "$MAIN_CLASS" \

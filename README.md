@@ -60,8 +60,8 @@ LexiBangla Desktop maintains strict separation between the read-only dictionary 
 | Operating System | User Database & Settings Location |
 |---|---|
 | **Windows** | `%LOCALAPPDATA%\OriginSD\LexiBangla\` |
-| **Linux** | `~/.local/share/lexibangla/` (or `$XDG_DATA_HOME/lexibangla/`) |
-| **macOS** | `~/Library/Application Support/LexiBangla/` |
+| **Linux** | `~/.local/share/OriginSD/LexiBangla/` (or `$XDG_DATA_HOME/OriginSD/LexiBangla/`) |
+| **macOS** | `~/Library/Application Support/OriginSD/LexiBangla/` |
 
 The master dictionary database is strictly read-only and never modified during runtime.
 
@@ -132,6 +132,14 @@ Each script produces an optimized, self-contained native package with a **bundle
 | **Windows** | Native `.exe` Installer *(Setup Wizard)* | `.\scripts\package-windows.ps1` | `dist\*.exe` |
 | **Linux** | Native `.deb` & `.rpm` Packages | `chmod +x scripts/package-linux.sh`<br>`./scripts/package-linux.sh` | `dist/*.deb` & `dist/*.rpm` |
 | **macOS** | Native `.dmg` Disk Image *(ARM64 & Intel)* | `chmod +x scripts/package-mac.sh`<br>`./scripts/package-mac.sh` | `dist/*.dmg` |
+
+### Default Installation Directories
+
+| Operating System | Default Installation Directory |
+|---|---|
+| **Windows** | `C:\Program Files\OriginSD\LexiBangla\` |
+| **Linux** | `/opt/OriginSD/LexiBangla/` |
+| **macOS** | `/Applications/OriginSD/LexiBangla.app` |
 
 ### What the Packaging Scripts Automate
 

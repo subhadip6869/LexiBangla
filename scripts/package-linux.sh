@@ -52,12 +52,14 @@ jpackage \
   --copyright "© 2026 OriginSD" \
   --description "$APP_DESCRIPTION" \
   --icon "$ICON_PATH" \
+  --about-url "https://originsd.vercel.app" \
+  --install-dir "/opt/OriginSD/LexiBangla" \
   --input target/package-input \
   --main-jar "$JAR_FILENAME" \
   --main-class "$MAIN_CLASS" \
   --runtime-image target/custom-runtime \
   --linux-shortcut \
-  --linux-menu-group "Education;Dictionary;"
+  --linux-menu-group "Education;Dictionary;OriginSD;"
 
 echo "=== [4/4] Packaging Native RPM Installer with jpackage (if rpmbuild available) ==="
 if command -v rpmbuild &> /dev/null; then
@@ -70,12 +72,14 @@ if command -v rpmbuild &> /dev/null; then
     --copyright "© 2026 OriginSD" \
     --description "$APP_DESCRIPTION" \
     --icon "$ICON_PATH" \
+    --about-url "https://originsd.vercel.app" \
+    --install-dir "/opt/OriginSD/LexiBangla" \
     --input target/package-input \
     --main-jar "$JAR_FILENAME" \
     --main-class "$MAIN_CLASS" \
     --runtime-image target/custom-runtime \
     --linux-shortcut \
-    --linux-menu-group "Education;Dictionary;"
+    --linux-menu-group "Education;Dictionary;OriginSD;"
 else
   echo "rpmbuild not found, skipping RPM packaging."
 fi
