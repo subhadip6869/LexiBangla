@@ -34,13 +34,13 @@ class UpdateServiceTest {
     void testAssetMatching() {
         ReleaseInfo release = new ReleaseInfo();
         ReleaseInfo.ReleaseAsset winAsset = new ReleaseInfo.ReleaseAsset();
-        winAsset.setName("LexiBangla-1.0.1-setup.exe");
+        winAsset.setName("LexiBangla-1.1.0-setup.exe");
 
         ReleaseInfo.ReleaseAsset linuxAsset = new ReleaseInfo.ReleaseAsset();
-        linuxAsset.setName("lexibangla_1.0.1_amd64.deb");
+        linuxAsset.setName("lexibangla_1.1.0_amd64.deb");
 
         ReleaseInfo.ReleaseAsset macAsset = new ReleaseInfo.ReleaseAsset();
-        macAsset.setName("LexiBangla-1.0.1.dmg");
+        macAsset.setName("LexiBangla-1.1.0.dmg");
 
         release.setAssets(List.of(winAsset, linuxAsset, macAsset));
 
