@@ -101,7 +101,7 @@ jobs:
             "--icon", "src/main/resources/lexibangla-logo.ico",
             "--input", $packageInput,
             "--main-jar", $jar,
-            "--main-class", "org.originsd.lexibangla.Launcher",
+            "--main-class", "app.vercel.originsd.lexibangla.Launcher",
             "--runtime-image", "target/custom-runtime",
             "--win-menu",
             "--win-shortcut",
@@ -134,7 +134,7 @@ jobs:
             --icon src/main/resources/icons/lexibangla-logo.png \
             --input target/package-input \
             --main-jar "$JAR_FILE" \
-            --main-class org.originsd.lexibangla.Launcher \
+            --main-class app.vercel.originsd.lexibangla.Launcher \
             --runtime-image target/custom-runtime \
             --linux-shortcut \
             --linux-menu-group "Education;Dictionary;"
@@ -149,7 +149,7 @@ jobs:
             --icon src/main/resources/icons/lexibangla-logo.png \
             --input target/package-input \
             --main-jar "$JAR_FILE" \
-            --main-class org.originsd.lexibangla.Launcher \
+            --main-class app.vercel.originsd.lexibangla.Launcher \
             --runtime-image target/custom-runtime \
             --linux-shortcut \
             --linux-menu-group "Education;Dictionary;"
@@ -170,10 +170,10 @@ jobs:
             --vendor "OriginSD" \
             --copyright "© 2026 OriginSD" \
             --mac-package-name "LexiBangla" \
-            --mac-package-identifier "org.originsd.lexibangla" \
+            --mac-package-identifier "app.vercel.originsd.lexibangla" \
             --input target/package-input \
             --main-jar "$JAR_FILE" \
-            --main-class org.originsd.lexibangla.Launcher \
+            --main-class app.vercel.originsd.lexibangla.Launcher \
             --runtime-image target/custom-runtime
 
       - name: Upload Installer Artifact

@@ -43,7 +43,7 @@ jpackage ^
   --icon "src\main\resources\lexibangla-logo.ico" ^
   --input target\package-input ^
   --main-jar "%JAR_FILENAME%" ^
-  --main-class "org.originsd.lexibangla.Launcher" ^
+  --main-class "app.vercel.originsd.lexibangla.Launcher" ^
   --runtime-image target\custom-runtime ^
   --win-menu ^
   --win-shortcut ^

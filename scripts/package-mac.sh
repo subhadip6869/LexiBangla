@@ -10,8 +10,8 @@ set -euo pipefail
 APP_NAME="LexiBangla"
 APP_VERSION="1.0.1"
 APP_VENDOR="OriginSD"
-APP_IDENTIFIER="org.originsd.lexibangla"
-MAIN_CLASS="org.originsd.lexibangla.Launcher"
+APP_IDENTIFIER="app.vercel.originsd.lexibangla"
+MAIN_CLASS="app.vercel.originsd.lexibangla.Launcher"
 ICON_PATH="src/main/resources/icons/lexibangla-logo.png"
 
 echo "=== [1/3] Building Application JAR with Maven ==="

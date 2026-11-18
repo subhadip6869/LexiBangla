@@ -10,7 +10,7 @@ APP_NAME="LexiBangla"
 APP_VERSION="1.0.1"
 APP_VENDOR="OriginSD"
 APP_DESCRIPTION="English-to-Bengali Offline Dictionary"
-MAIN_CLASS="org.originsd.lexibangla.Launcher"
+MAIN_CLASS="app.vercel.originsd.lexibangla.Launcher"
 ICON_PATH="src/main/resources/icons/lexibangla-logo.png"
 
 echo "=== [1/4] Building Application JAR with Maven ==="

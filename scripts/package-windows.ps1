@@ -11,7 +11,7 @@ $APP_NAME = "LexiBangla"
 $APP_VERSION = "1.0.1"
 $APP_VENDOR = "OriginSD"
 $APP_DESCRIPTION = "English-to-Bengali Offline Dictionary"
-$MAIN_CLASS = "org.originsd.lexibangla.Launcher"
+$MAIN_CLASS = "app.vercel.originsd.lexibangla.Launcher"
 $ICON_PATH = "src\main\resources\lexibangla-logo.ico"
 
 Write-Host "=== [1/3] Building Shaded Application JAR with Maven ===" -ForegroundColor Cyan

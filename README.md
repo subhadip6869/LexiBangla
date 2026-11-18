@@ -156,6 +156,6 @@ Copyright (c) 2026 OriginSD (Developer: Subhadip Dutta)
 - **Application:** LexiBangla Desktop
 - **Publisher:** OriginSD
 - **Developer:** Subhadip Dutta
-- **Website:** [https://originsd.org](https://originsd.org)
+- **Website:** [https://originsd.vercel.app](https://originsd.vercel.app)
 - **GitHub:** [https://github.com/subhadip6869/LexiBangla.git](https://github.com/subhadip6869/LexiBangla.git)
 - **Location:** Bankura, West Bengal, India
